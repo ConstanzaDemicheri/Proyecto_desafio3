@@ -3,50 +3,26 @@ export class ShoppingCartPage{
 constructor(){
 
   this.total = "#price";
+  this.verTotal = "//button[text()='Show total price']";
 
 
+ }
 
-    }
+    verifyProduct(veryfyProduct){
+      return cy.get(`p[name='${veryfyProduct}']`);
+  }
 
-    verifyPriceBlackJacket() {
-    
-    return cy.get('[name="25"]');
-
-    }
-
-    verifyNameBlackJacket() {
-    
-      return cy.get('[name="Black Jacket"]');
   
-      }
-  
-      verifyPriceAndProductBlackJacket(name,price) {
+    verifyPricesAndProducts(Name,Price){
     
-        return cy.xpath(`//p[@name='${name}']//following-sibling::p[@name=${price}]`);
+        return cy.xpath(`//p[@name='${Name}']//following-sibling::p[@name=${Price}]`);
     
         }
 
-        verifyPriceWitheShoes() {
-    
-          return cy.get('[name="30"]');
-      
-          }
-      
-          verifyNameWitheShoes() {
-          
-            return cy.get('[name="White Shoes"]');
-        
-            }
-
-            verifyPriceAndProductWitheShoes(name,price) {
-    
-              return cy.xpath(`//p[@name='${name}']//following-sibling::p[@name=${price}]`);
-          
-              }
 
               clickShowTotalPrice() {
         
-                return cy.xpath('//button[text()="Show total price"]')
+                return cy.xpath(this.verTotal);
             
                 }
 

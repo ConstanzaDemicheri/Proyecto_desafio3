@@ -40,20 +40,17 @@ describe('desafio 3', () => {
         login.writePassword(LoginData.user.password);
         login.ClickbuttonFirstLogin();
         home.clickButtonOnlineShop();
-        productsPage.selectBlackJacket();
+        productsPage.selectProduct(productsShop.productOne.name);
         productsPage.clickOnClosemodal();
-        productsPage.selectWhiteShoes();
+        productsPage.selectProduct(productsShop.productOtwo.name);
         productsPage.clickOnClosemodal();
         productsPage.clickButtonGoShoppingCart();
-        shoppingCartPage.verifyPriceBlackJacket().should('have.text' , "$25");
-        shoppingCartPage.verifyNameBlackJacket().should('have.text' , "Black Jacket");
-        shoppingCartPage.verifyPriceAndProductBlackJacket(productsShop.productOne.name,productsShop.productOne.price1).should('have.text' , `$${productsShop.productOne.price1}`);
-        shoppingCartPage.verifyPriceWitheShoes().should('have.text' , "$30");
-        shoppingCartPage.verifyNameWitheShoes().should('have.text' , "White Shoes");
-        shoppingCartPage.verifyPriceAndProductWitheShoes(productsShop.productOtwo.name,productsShop.productOtwo.price2).should('have.text' , `$${productsShop.productOtwo.price2}`);
+        shoppingCartPage.verifyProduct(productsShop.productOne.name).should('exist');
+        shoppingCartPage.verifyPricesAndProducts(productsShop.productOne.name,productsShop.productOne.price1).should('exist');       
+        shoppingCartPage.verifyProduct(productsShop.productOtwo.name).should('exist');
+        shoppingCartPage.verifyPricesAndProducts(productsShop.productOtwo.name,productsShop.productOtwo.price2).should('exist');     
         shoppingCartPage.clickShowTotalPrice().click();
         shoppingCartPage.checkAccumulatedPrice().should('exist');
-        shoppingCartPage.checkAccumulatedPrice(productsShop.productOne.price1,productsShop.productOtwo.price2).should('exist');
         shoppingCartPage.checkAccumulatedPrice().should('have.text',suma);
 
         
