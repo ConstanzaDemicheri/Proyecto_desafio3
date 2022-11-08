@@ -10,6 +10,7 @@ import { ShoppingCartPage } from "../support/pages/shoppingCart";
 describe('desafio 3', () => {
     let LoginData
     let productsShop
+   
 
     const register = new Register();
     const home = new Home();
@@ -34,6 +35,12 @@ describe('desafio 3', () => {
 
     it('Preentrega', () => {
         let suma = (productsShop.productOne.price1) + (productsShop.productOtwo.price2); 
+        let name1 = productsShop.productOne.name
+        let priceOne = productsShop.productOne.price1
+        let name2 = productsShop.productOtwo.name
+        let priceTwo = productsShop.productOtwo.price2
+
+
         cy.visit('');
         register.clickButtonLogin();
         login.writeUser(LoginData.user.username);
@@ -45,12 +52,11 @@ describe('desafio 3', () => {
         productsPage.selectProduct(productsShop.productOtwo.name);
         productsPage.clickOnClosemodal();
         productsPage.clickButtonGoShoppingCart();
-        shoppingCartPage.verifyProduct(productsShop.productOne.name).should('exist');
-        shoppingCartPage.verifyPricesAndProducts(productsShop.productOne.name,productsShop.productOne.price1).should('exist');       
-        shoppingCartPage.verifyProduct(productsShop.productOtwo.name).should('exist');
-        shoppingCartPage.verifyPricesAndProducts(productsShop.productOtwo.name,productsShop.productOtwo.price2).should('exist');     
+        shoppingCartPage.verifyProduct(productsShop.productOne.name).should('have.text',name1);
+        shoppingCartPage.verifyPricesAndProducts(productsShop.productOne.name,productsShop.productOne.price1).should("have.text", `$${priceOne}`);       
+        shoppingCartPage.verifyProduct(productsShop.productOtwo.name).should('have.text',name2);
+        shoppingCartPage.verifyPricesAndProducts(productsShop.productOtwo.name,productsShop.productOtwo.price2).should("have.text",`$${priceTwo}`);     
         shoppingCartPage.clickShowTotalPrice().click();
-        shoppingCartPage.checkAccumulatedPrice().should('exist');
         shoppingCartPage.checkAccumulatedPrice().should('have.text',suma);
 
         
